@@ -219,10 +219,7 @@
 #undef USE_ADC_INTERNAL
 #endif
 
-#ifdef USE_FLASH
-#define USE_FLASHFS
-#define USE_FLASH_TOOLS
-#endif
+#if defined(USE_FLASH) && defined(USE_FLASH_CHIP)
 
 #if (defined(USE_FLASH_W25M512) || defined(USE_FLASH_W25Q128FV)) && !defined(USE_FLASH_M25P16)
 #define USE_FLASH_M25P16
@@ -236,13 +233,13 @@
 #define USE_FLASH_W25M
 #endif
 
-#if defined(USE_FLASH_M25P16) || defined(USE_FLASH_W25M) || defined(USE_FLASH_W25N01G) || defined(USE_FLASH_W25Q128FV)
-#define USE_FLASH_CHIP
+#else
+// either could be defined so undef both
+#undef USE_FLASH_CHIP
+#undef USE_FLASH
+#undef USE_FLASH_TOOLS
 #endif
 
-#ifndef USE_FLASH_CHIP
-#undef USE_FLASHFS
-#endif
 
 #if (!defined(USE_SDCARD) && !defined(USE_FLASHFS)) || !defined(USE_BLACKBOX)
 #undef USE_USB_MSC

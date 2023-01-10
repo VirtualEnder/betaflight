@@ -414,6 +414,9 @@ SRC += \
             drivers/flash_w25m.c \
             io/flashfs.c \
             $(MSC_SRC)
+
+TARGET_FLAGS := -DUSE_FLASH_CHIP $(TARGET_FLAGS)
+
 endif
 
 SRC += $(COMMON_SRC)
